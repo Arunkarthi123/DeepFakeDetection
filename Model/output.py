@@ -4,42 +4,33 @@ import numpy as np
 import pandas as pd
 import os
 
-# Paths
-MODEL_PATH = "optimized_image_classifier.h5"  
-TEST_DIR = r"C:\Users\rvhun\Downloads\vista-25\dataset_1\dataset_1\test"  # Replace with the correct test directory path
-OUTPUT_CSV = "solution.csv"  # Output CSV file
+MODEL_PATH = "optimized_image_classifier.h5"
+TEST_DIR = r"C:\Users\rvhun\Downloads\vista-25\dataset_1\dataset_1\test"
+OUTPUT_CSV = "solution.csv"
 
-
-# Image Size & Batch Size
 IMG_SIZE = (224, 224)
-BATCH_SIZE = 1  # Since test images are processed one by one
+BATCH_SIZE = 1
 
-# Load the trained model
 model = tf.keras.models.load_model(MODEL_PATH)
 
-# Data Preprocessing for Test Images
 test_datagen = ImageDataGenerator(rescale=1.0 / 255)
 test_generator = test_datagen.flow_from_directory(
     TEST_DIR,
     target_size=IMG_SIZE,
     batch_size=BATCH_SIZE,
-    class_mode=None,  # No labels since it's test data
+    class_mode=None,
     shuffle=False
 )
 
-# Generate Predictions
 predictions = model.predict(test_generator)
 
-# Get Image IDs
 image_ids = [os.path.basename(path) for path in test_generator.filenames]
 
-# Convert Predictions to DataFrame
 df = pd.DataFrame({
     "image_id": image_ids,
-    "label": predictions.flatten()  # Flatten to 1D array
+    "label": predictions.flatten()
 })
 
-# Save to CSV
 df.to_csv(OUTPUT_CSV, index=False)
 
 print(f"Predictions saved to {OUTPUT_CSV}")
