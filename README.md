@@ -7,7 +7,14 @@ The dataset consists of:
 - **train/** (Contains labeled images)  
   - `real/` - Contains real images  
   - `fake/` - Contains AI-generated images  
-- **test/** (Contains unlabeled images to be predicted)  
+- **test/** (Contains unlabeled images to be predicted)
+## 📂 Dataset  
+The dataset is too large to be included in this repository. Please download it manually from Kaggle:  
+
+🔗 **[DeepFakeDetection Dataset on Kaggle](https://www.kaggle.com/competitions/vista-25)**  
+
+After downloading, extract the dataset inside the project folder:
+
 
 ## 🎯 Objective  
 The model predicts whether an image is **real (1.0) or fake (0.0)** and generates a CSV file with the format:  
